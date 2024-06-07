@@ -13,6 +13,17 @@ export default function Home() {
     if (filter === "completed") return task.completed;
     return true;
   });
+  useEffect(() => {
+    const data = localStorage.getItem("my-list");
+    if (data) {
+      setTasks(JSON.parse(data));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("my-list", JSON.stringify(tasks));
+  });
+
   const activeNum = tasks.filter((task) => !task.completed).length;
 
   const handleAddTask = () => {
