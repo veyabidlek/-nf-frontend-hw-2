@@ -21,7 +21,10 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("my-list", JSON.stringify(tasks));
+    const handleBeforeUnload = (event) => {
+      localStorage.setItem("my-list", JSON.stringify(tasks));
+    };
+    window.addEventListener("beforeunload", handleBeforeUnload);
   });
 
   const activeNum = tasks.filter((task) => !task.completed).length;
